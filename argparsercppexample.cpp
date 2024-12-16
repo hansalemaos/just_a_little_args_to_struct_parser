@@ -1,6 +1,3 @@
-# Simple args to struct parser
-
-```cpp
 #include "parseargstostruct.h"
 
 typedef struct parsed_args
@@ -164,4 +161,3 @@ int main(int argc, char *argv[])
     // a.exe --just_a_bool_test1=true --just_a_bool_test2=false
     // a.exe --just_a_bool_test1=1 --just_a_bool_test2=0
 }
-```
