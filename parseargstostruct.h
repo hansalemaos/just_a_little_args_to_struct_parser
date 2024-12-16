@@ -114,6 +114,44 @@ constexpr std::array<uint8_t, 256> array_ascii_replace_non_numeric = {
     32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 218-233
     32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32  // 234-255
 };
+constexpr std::array<uint8_t, 256> array_ascii_replace_non_numeric_float = {
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 0-15
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 16-31
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 46, 32, // 32-47
+    48, 49, 50, 51, 52, 53, 54, 55, 56, 57,                         // 48-57 (digits '0'-'9')
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 58-73
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 74-89
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 90-105
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 106-121
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 122-137
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 138-153
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 154-169
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 170-185
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 186-201
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 202-217
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 218-233
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32  // 234-255
+};
+
+constexpr std::array<uint8_t, 256> array_ascii_replace_non_numeric_float_with_comma = {
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 0-15
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 16-31
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 44, 32, 46, 32, // 32-47
+    48, 49, 50, 51, 52, 53, 54, 55, 56, 57,                         // 48-57 (digits '0'-'9')
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 58-73
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 74-89
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 90-105
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 106-121
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 122-137
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 138-153
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 154-169
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 170-185
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 186-201
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 202-217
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, // 218-233
+    32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32  // 234-255
+};
+
 static constexpr bool to_bool(const std::string_view s)
 {
 
@@ -428,6 +466,20 @@ std::string replace_fu(const std::string_view s, int op)
             outv += (array_ascii_replace_non_numeric[*siterstart++]);
         }
     }
+    else if (op == 3)
+    {
+        while (siterstart != siterend)
+        {
+            outv += (array_ascii_replace_non_numeric_float[*siterstart++]);
+        }
+    }
+    else if (op == 4)
+    {
+        while (siterstart != siterend)
+        {
+            outv += (array_ascii_replace_non_numeric_float_with_comma[*siterstart++]);
+        }
+    }
     return outv;
 }
 
@@ -442,6 +494,14 @@ std::string replace_non_printable_with_spaces(std::string_view _sv)
 std::string replace_non_decimal_with_spaces(std::string_view _sv)
 {
     return replace_fu(_sv, 2);
+}
+std::string replace_non_float_with_spaces(std::string_view _sv)
+{
+    return replace_fu(_sv, 3);
+}
+std::string replace_non_float_with_spaces_and_comma(std::string_view _sv)
+{
+    return replace_fu(_sv, 4);
 }
 std::vector<std::pair<std::string, std::string>> parse_args_to_string_vector(int argc, char *argv[])
 {
@@ -527,8 +587,73 @@ static std::vector<double> parse_doubles_to_vector(const std::string_view s, cha
         std::string_view sv{ref.begin(), ref.end()};
         result.emplace_back(convert_to_double_at_any_cost(sv, nan_value));
     }
+    return result;
+}
+static std::vector<std::pair<int64_t, int64_t>> parse_int_pairs_to_vector(const std::string_view s,
+                                                                          int64_t nan_value = MAX_64BIT_INT)
+{
+    std::string s2{replace_non_float_with_spaces_and_comma(s)};
+    std::string s3{normalize_whitespaces(s2)};
+    std::vector<std::pair<int64_t, int64_t>> result;
+    result.reserve(s.size() / 4);
+    auto strs = s3 | std::views::split(' ');
+    for (const auto &ref : strs)
+    {
+        std::string_view sv{ref.begin(), ref.end()};
+        auto floatsnumbers = sv | std::views::split(',');
+        size_t numbercounter = 0;
+        int64_t firstvalueint = nan_value, secondvalueint = nan_value;
+        for (const auto &ref2 : floatsnumbers)
+        {
+            std::string_view first_sv{ref2.begin(), ref2.end()};
+            double firstvalue = convert_to_double_at_any_cost(first_sv, (double)nan_value);
+            if (numbercounter == 0)
+            {
+                firstvalueint = (int64_t)firstvalue;
+            }
+            else if (numbercounter == 1)
+            {
+                secondvalueint = (int64_t)firstvalue;
+            }
+            numbercounter++;
+        }
+        result.emplace_back(std::make_pair(firstvalueint, secondvalueint));
+    }
+    return result;
+}
 
+static std::vector<std::pair<double, double>> parse_double_pairs_to_vector(const std::string_view s,
+                                                                           double nan_value = MAX_64BIT_INT_AS_DOUBLE)
+{
+    std::string s2{replace_non_float_with_spaces_and_comma(s)};
+    std::string s3{normalize_whitespaces(s2)};
+    std::vector<std::pair<double, double>> result;
+    result.reserve(s.size() / 4);
+    auto strs = s3 | std::views::split(' ');
+    for (const auto &ref : strs)
+    {
+        std::string_view sv{ref.begin(), ref.end()};
+        auto floatsnumbers = sv | std::views::split(',');
+        size_t numbercounter = 0;
+        double firstvalueint = nan_value, secondvalueint = nan_value;
+        for (const auto &ref2 : floatsnumbers)
+        {
+            std::string_view first_sv{ref2.begin(), ref2.end()};
+            double firstvalue = convert_to_double_at_any_cost(first_sv, nan_value);
+            if (numbercounter == 0)
+            {
+                firstvalueint = firstvalue;
+            }
+            else if (numbercounter == 1)
+            {
+                secondvalueint = firstvalue;
+            }
+            numbercounter++;
+        }
+        result.emplace_back(std::make_pair(firstvalueint, secondvalueint));
+    }
     return result;
 }
 } // namespace arghelpers
-#endif // !
+
+#endif

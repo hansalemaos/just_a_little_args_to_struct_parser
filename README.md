@@ -15,6 +15,9 @@ typedef struct parsed_args
     double sleep_time_between_actions_as_double;
     std::vector<int64_t> some_int_values;
     std::vector<double> some_double_values;
+    std::vector<std::pair<int64_t, int64_t>> some_pair_int_values;
+    std::vector<std::pair<double, double>> some_pair_double_values;
+
     bool just_a_bool_test1;
     bool just_a_bool_test2;
     bool debug_mode;
@@ -30,8 +33,33 @@ typedef struct parsed_args
     bool _some_double_values;
     bool _just_a_bool_test1;
     bool _just_a_bool_test2;
+    bool _some_pair_int_values;
+    bool _some_pair_double_values;
 
 } p_args;
+
+template <typename T, typename U> std::ostream &operator<<(std::ostream &os, std::vector<std::pair<T, U>> &v)
+{
+    if (v.size() == 0)
+    {
+        os << "[]";
+        return os;
+    }
+    auto it{v.begin()};
+
+    os << '[';
+    while (it != v.end() - 1)
+    {
+        os << "[" << it->first << "," << it->second << "]";
+        os << ",";
+
+        it++;
+    }
+    os << "[" << it->first << "," << it->second << "]";
+    os << ']';
+
+    return os;
+}
 
 template <typename T> std::ostream &operator<<(std::ostream &os, std::vector<T> &v)
 {
@@ -73,6 +101,12 @@ std::ostream &operator<<(std::ostream &os, parsed_args &args)
     os << "some_double_values:\t" << args.some_double_values << "\tpassed: " << args._some_double_values << std::endl;
     os << "just_a_bool_test1:\t" << args.just_a_bool_test1 << "\tpassed: " << args._just_a_bool_test1 << std::endl;
     os << "just_a_bool_test2:\t" << args.just_a_bool_test2 << "\tpassed: " << args._just_a_bool_test2 << std::endl;
+    os << "some_pair_int_values:\t" << args.some_pair_int_values << "\tpassed: " << args._some_pair_int_values
+
+       << std::endl;
+    os << "some_pair_double_values:\t" << args.some_pair_double_values << "\tpassed: " << args._some_pair_double_values
+
+       << std::endl;
     return os;
 }
 
@@ -148,6 +182,16 @@ auto parse_args(int argc, char *argv[])
             myargs.just_a_bool_test2 = arghelpers::to_bool(value);
             myargs._just_a_bool_test2 = true;
         }
+        else if (arghelpers::compare2strings(key, "some_pair_int_values"))
+        {
+            myargs.some_pair_int_values = arghelpers::parse_int_pairs_to_vector(value, arghelpers::MAX_64BIT_INT);
+            myargs._some_pair_int_values = true;
+        }
+        else if (arghelpers::compare2strings(key, "some_pair_double_values"))
+        {
+            myargs.some_pair_double_values = arghelpers::parse_double_pairs_to_vector(value);
+            myargs._some_pair_double_values = true;
+        }
     }
     return myargs;
 }
@@ -163,5 +207,8 @@ int main(int argc, char *argv[])
     // a.exe --device="test" --screen_width=1000 --screen_height=1000 --some_double_values=1.3,2.32,3.1,4000,1.29
     // a.exe --just_a_bool_test1=true --just_a_bool_test2=false
     // a.exe --just_a_bool_test1=1 --just_a_bool_test2=0
+    // a.exe --just_a_bool_test1=1 --just_a_bool_test2=0 --some_pair_int_values=(1,2);(3,4);(5,6);(7,8);(9,10)
+    // a.exe --just_a_bool_test1=1 --just_a_bool_test2=0 --some_pair_double_values=(1.23,2.231);(3.23,4.11);(5.3,6)
 }
+
 ```
